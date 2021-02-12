@@ -150,12 +150,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("passwords_file", type=str, help="A .csv or .kdbx file containing the passwords. ")
     parser.add_argument("--blacklist", "-b", type=str, nargs="*", default=[], metavar="PASSWORD",
-                        help="A list of frequently used passwords")
+                        help="A list of frequently used passwords that should receive a harsh penalty in their scores")
     parser.add_argument("--min-score", "-s", default=16, help="All passwords with a score less than this value will be "
                                                               "printed")
-    parser.add_argument("--expire", "-e", type=str, help="If set and a kdbx database was given, all passwords scored below "
-                                                   "--min-score will be expired at the given date or interval.\n"
-                                                   "Format: YYYY-MM-DD | Day Month Year (cron-like syntax)")
+    parser.add_argument("--expire", "-e", type=str, help="If set and a kdbx database was given, all passwords scored "
+                                                         "below --min-score will be expired at the given date or "
+                                                         "interval.\nFormat: YYYY-MM-DD | Day Month Year (cron-like "
+                                                         "syntax, example: '*/7 * 2025' will expire on password every "
+                                                         "7 days in 2025)")
     parser.add_argument('--show-passwords', action='store_true')
 
     args = parser.parse_args()

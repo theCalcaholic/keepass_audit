@@ -26,10 +26,12 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --blacklist [PASSWORD [PASSWORD ...]]
-                        A list of frequently used passwords
+  --blacklist [PASSWORD [PASSWORD ...]], -b [PASSWORD [PASSWORD ...]]
+                        A list of frequently used passwords that should receive a harsh penalty in their scores
   --min-score MIN_SCORE, -s MIN_SCORE
                         All passwords with a score less than this value will be printed
-  --expire EXPIRE       If set and a kdbx database was given, all passwords scored below --min-score will be expired at the given date or interval. Format: YYYY-MM-DD | Day Month Year (cron-like syntax)
+  --expire EXPIRE, -e EXPIRE
+                        If set and a kdbx database was given, all passwords scored below --min-score will be expired at the given date or interval. Format: YYYY-MM-DD | Day Month Year (cron-like syntax, example: '*/7 * 2025' will
+                        expire on password every 7 days in 2025)
   --show-passwords
 ```
