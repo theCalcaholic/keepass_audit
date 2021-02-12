@@ -2,7 +2,7 @@
 
 Command line utiltity for auditing keepass databases and automatically expiring weak passwords.
 
-Uses [pykeepass](https://github.com/libkeepass/pykeepass) for interacting with your keepass database,
+It uses [pykeepass](https://github.com/libkeepass/pykeepass) for interacting with your keepass database,
 so make sure you trust that library as well as this project. :)
 
 ## Installation
