@@ -153,10 +153,10 @@ if __name__ == '__main__':
                         help="A list of frequently used passwords that should receive a harsh penalty in their scores")
     parser.add_argument("--min-score", "-s", default=16, help="All passwords with a score less than this value will be "
                                                               "printed")
-    parser.add_argument("--expire", "-e", type=str, help="If set and a kdbx database was given, all passwords scored "
-                                                         "below --min-score will be expired at the given date or "
-                                                         "interval.\nFormat: YYYY-MM-DD | Day Month Year (cron-like "
-                                                         "syntax, example: '*/7 * 2025' will expire on password every "
+    parser.add_argument("--expire", "-e", type=str, help="If set, all passwords scored below --min-score will be "
+                                                         "expired at the given date or interval.\n"
+                                                         "Format: YYYY-MM-DD | Day Month Year (cron-like syntax, "
+                                                         "example: '*/7 * 2025' will expire on password every "
                                                          "7 days in 2025)")
     parser.add_argument('--show-passwords', action='store_true')
 

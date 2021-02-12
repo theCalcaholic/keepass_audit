@@ -31,7 +31,7 @@ optional arguments:
   --min-score MIN_SCORE, -s MIN_SCORE
                         All passwords with a score less than this value will be printed
   --expire EXPIRE, -e EXPIRE
-                        If set and a kdbx database was given, all passwords scored below --min-score will be expired at the given date or interval. Format: YYYY-MM-DD | Day Month Year (cron-like syntax, example: '*/7 * 2025' will
-                        expire on password every 7 days in 2025)
+                        If set, all passwords scored below --min-score will be expired at the given date or interval. Format: YYYY-MM-DD | Day Month Year (cron-like syntax, example: '*/7 * 2025' will expire on password every 7 days
+                        in 2025)
   --show-passwords
 ```
