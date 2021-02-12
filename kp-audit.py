@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import io
-import sys
 import csv
 import subprocess
 import argparse
@@ -10,36 +9,22 @@ from pykeepass.entry import Entry
 from datetime import date, timedelta, datetime, time
 from getpass import getpass
 from zxcvbn import zxcvbn
-from zxcvbn.matching import add_frequency_lists, scoring
+from zxcvbn.matching import add_frequency_lists
 from typing import List, Any, Tuple, Dict
-
-pw_column = -1
 
 
 def perform_audit(keepass: PyKeePass, pws: List[str], score: float, show_passwords=False) -> List[Tuple[float, Entry]]:
     global pw_column
 
-    # freq_lists = {}
-    # for i, pw in enumerate(pws):
-    #     freq_lists[str(i)] = [pw]
     add_frequency_lists({
         "my_passwords": [pw.lower() for pw in pws]
     })
 
     pw_data = [entry for entry in keepass.entries if isinstance(entry, Entry) and entry.password is not None]
-    # pw_data = import_password_data(pw_file_path)
-
-    # if "Password" not in pw_data[0]:
-    #     print("No passwords found in {}!".format(pw_file_path))
-    #     return
-
-    # pw_data = [row for row in pw_data if 'Password' in row and len(row['Password']) > 0]
 
     annotated = map(lambda entry: (get_zxcvbn_score(entry), entry), pw_data)
     filtered = filter(lambda entry: entry[0] < score, annotated)
     sorted_entries = sorted(filtered, key=lambda entry: entry[0])
-
-    #filtered_pws = [pw for pw in pw_data if pw['score'] < score]
 
     print_pws(sorted_entries, show_passwords)
 
@@ -54,7 +39,6 @@ def print_pws(pws: List[Tuple[float, Entry]], show_passwords=False):
 
 def get_zxcvbn_score(entry: Entry):
     evaluation = zxcvbn(entry.password)
-    # entry['score'] = evaluation['guesses_log10']
     return evaluation['guesses_log10']
 
 
@@ -108,7 +92,6 @@ def get_expiration_dates(cron_spec: Tuple[float], start_date: date = None):
             # iterate over days in month
             current_month = current.month
 
-            #print(f"{current.month - month_offset} % {(1 / cron_spec[1])}")
             while cron_spec[1] == 0 or (cron_spec[1] < 1 and (current.month - month_offset) % (1 / cron_spec[1]) == 0) \
                     or current.month == cron_spec[1]:
                 if cron_spec[0] < 1:
@@ -128,7 +111,7 @@ def get_expiration_dates(cron_spec: Tuple[float], start_date: date = None):
             # set/increment month
             if cron_spec[1] < 1:
                 increment = 1 if cron_spec[1] == 0 else int(1 / cron_spec[1])
-                #print(f"{current_month} + {increment} = {current_month + increment}")
+
                 # if no months left
                 if current.month + increment > 12:
                     # increment year and month remainder
@@ -162,25 +145,15 @@ def expire_weak_passwords(keepass: PyKeePass, audit_data: List[Tuple[float, Entr
         entry[1].expires = True
         print(f"'{'/'.join(entry[1].path)}' will expire on {entry[1].expiry_time}")
 
-    # for i, exp_date in enumerate(get_expiration_dates(exp_cron, exp_date)):
-    #     print(exp_date)
-    #     if i > 40:
-    #         break
-
-    # if exp_date is None:
-    #     exp_date =
-    # for pw_entry in
-    # pass
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("passwords_file", type=str, help="A .csv or .kdbx file containing the passwords. ")
-    parser.add_argument("--blacklist", type=str, nargs="*", default=[], metavar="PASSWORD",
+    parser.add_argument("--blacklist", "-b", type=str, nargs="*", default=[], metavar="PASSWORD",
                         help="A list of frequently used passwords")
     parser.add_argument("--min-score", "-s", default=16, help="All passwords with a score less than this value will be "
                                                               "printed")
-    parser.add_argument("--expire", type=str, help="If set and a kdbx database was given, all passwords scored below "
+    parser.add_argument("--expire", "-e", type=str, help="If set and a kdbx database was given, all passwords scored below "
                                                    "--min-score will be expired at the given date or interval.\n"
                                                    "Format: YYYY-MM-DD | Day Month Year (cron-like syntax)")
     parser.add_argument('--show-passwords', action='store_true')
