@@ -148,7 +148,7 @@ def expire_weak_passwords(keepass: PyKeePass, audit_data: List[Tuple[float, Entr
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("passwords_file", type=str, help="A .csv or .kdbx file containing the passwords. ")
+    parser.add_argument("passwords_file", type=str, help="Your keepass database (probably a .kdbx file).")
     parser.add_argument("--blacklist", "-b", type=str, nargs="*", default=[], metavar="PASSWORD",
                         help="A list of frequently used passwords that should receive a harsh penalty in their scores")
     parser.add_argument("--min-score", "-s", default=16, help="All passwords with a score less than this value will be "

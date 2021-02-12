@@ -22,7 +22,7 @@ $ ./kp-audit.py --help
 usage: kp-audit.py [-h] [--blacklist [PASSWORD [PASSWORD ...]]] [--min-score MIN_SCORE] [--expire EXPIRE] [--show-passwords] passwords_file
 
 positional arguments:
-  passwords_file        A .csv or .kdbx file containing the passwords.
+  passwords_file        Your keepass database (probably a .kdbx file).
 
 optional arguments:
   -h, --help            show this help message and exit
