@@ -1,0 +1,2 @@
+pykeepass~=4.0.0
+zxcvbn~=4.4.28
