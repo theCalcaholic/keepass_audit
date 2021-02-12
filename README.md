@@ -12,14 +12,14 @@ git clone git@github.com:theCalcaholic/keepass_audit.git
 cd keepass_audit
 virtualenv -p python3 .venv
 . ./.venv/bin/activate
-python ./kp-audit.py --help
+python ./kp_audit.py --help
 ```
 
 ## Usage
 
 ```sh
-$ ./kp-audit.py --help
-usage: kp-audit.py [-h] [--blacklist [PASSWORD [PASSWORD ...]]] [--min-score MIN_SCORE] [--expire EXPIRE] [--show-passwords] passwords_file
+$ ./kp_audit.py --help
+usage: kp_audit.py [-h] [--blacklist [PASSWORD [PASSWORD ...]]] [--min-score MIN_SCORE] [--expire EXPIRE] [--show-passwords] passwords_file
 
 positional arguments:
   passwords_file        Your keepass database (probably a .kdbx file).
